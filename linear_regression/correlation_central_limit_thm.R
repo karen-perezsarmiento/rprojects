@@ -17,6 +17,9 @@ R <- replicate(B,{
 })
 qplot(R,geom="histogram",binwidth=0.05,colo=I("black"))
 
+###NOTE : if we increase the sample size N from 25 to 50 we can expect the standard deviation of the correlation
+### to shrink (central limit theorem)
+
 #expecte value and standard error
 mean(R)
 sd(R)
