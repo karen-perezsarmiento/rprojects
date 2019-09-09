@@ -40,3 +40,23 @@ sample_n(galton_heights,N,replace=TRUE) %>%
   .$coef
 
 lse %>% summarize(se_0=sd(beta_0),se_1=sd(beta_1))
+
+
+##it is useful to know that the LSE can be storngly correlated, as seen below
+
+lse %>% summarize(cor(beta_0,beta_1))
+
+
+##however, the correlation depends on how the predictors are defined or transformed
+##here we standardize the father heights
+
+B <- 1000
+N <- 50
+lse <- replicate(B, {
+  sample_n(galton_heights,N,replace=TRUE) %>%
+  mutate(father = father -mean(father)) %>%
+  lm(son ~ father, data = .) %>% .$coef
+})
+
+#observe what happens to the correlation
+cor(lse[1,],lse[2,])
