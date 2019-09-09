@@ -19,3 +19,8 @@ galton_heights %>%
 galton_heights %>%
   ggplot(aes(father,son)) +
   geom_point(alpha = 0.5)
+
+#correlation coeff
+
+#rho <- mean(scale(x)*scale(y))
+galton_heights %>% summarize(r=cor(father,son)) %>% pull(r)
